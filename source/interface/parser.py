@@ -20,7 +20,6 @@ try:
 except:
     zero_string += 'data (VKPars)' + '\\'
     print('3', zero_string)
-print(zero_string)
 
 
 useragent = fake_useragent.UserAgent().random
