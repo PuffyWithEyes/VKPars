@@ -181,9 +181,11 @@ class Application(tkinter.ttk.Frame):
         hsy.grid(row=2, column=0, sticky='wen')
 
     def show_error(self):
+        """ Выводим ошибку, если в папке отсутствуют файлы с форматом .html """
         tkinter.messagebox.showerror('html файл отсутствует', 'В указанной папке отсутствуют файлы с расширением html.')
 
     def exit(self):
+        """ Функция сворачивания приложения """
         question = tkinter.messagebox.askyesno('Прочтите внимательно!', 'ПРОЧИТАЙТЕ ВНИМАТЕЛЬНО! Вы уверены что хотите '
                                                                         'свернуть это окно? Процесс сбора информации '
                                                                         'продолжится, но вы больше не сможете открыть '

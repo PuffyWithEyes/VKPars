@@ -6,6 +6,7 @@ import os
 import tkinter
 
 
+""" Создаём путь для папок """
 all_root = os.getcwd()
 all_root = list(all_root.split('\\')[:-1])
 zero_string = ''
@@ -30,6 +31,7 @@ headers = {
 
 
 def create_direct():
+    """ Создаём папки с данными """
     paths = [f"{zero_string}gallery", f"{zero_string}voices", f"{zero_string}other"]
     try:
         for path in paths:
@@ -39,6 +41,7 @@ def create_direct():
 
 
 def open_pages(direct, datas, label):
+    """ Парсим данные """
     create_direct()
     count = 0
     for data in datas:
@@ -91,6 +94,7 @@ def open_pages(direct, datas, label):
 
 
 def download_data(get_attachment, all_info, count, label):
+    """ Расфасовываем данные по папкам """
     r = requests.get(url=get_attachment, headers=headers)
     file_format = str(get_attachment.split('.')[-1])
     if file_format == 'jpg':
