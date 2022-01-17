@@ -10,17 +10,13 @@ import tkinter
 all_root = os.getcwd()
 all_root = list(all_root.split('\\')[:-1])
 zero_string = ''
-print('0', zero_string)
 for root in all_root:
     zero_string += root + '\\'
-    print('1', zero_string)
 try:
     os.mkdir(f"{zero_string}\\data (VKPars)")
     zero_string += 'data (VKPars)' + '\\'
-    print('2', zero_string)
 except:
     zero_string += 'data (VKPars)' + '\\'
-    print('3', zero_string)
 
 
 useragent = fake_useragent.UserAgent().random
