@@ -1,2 +1,1 @@
-class InterfaceException(Exception):
-    pass
+EX = Exception

@@ -3,12 +3,12 @@ import tkinter.ttk
 import tkinter.font
 from tkinter import filedialog
 import webbrowser
-from parser import open_pages
+from Information import open_pages
 import os
 import tkinter.messagebox
 import threading
 from textsts import info
-from exceptions import InterfaceException
+from exceptions import EX
 
 
 class Application(tkinter.ttk.Frame):
@@ -67,23 +67,23 @@ class Application(tkinter.ttk.Frame):
             self.mainLbl.grid_forget()
             self.rootBtn.grid_forget()
             self.infoBtn.grid_forget()
-        except InterfaceException:
-            pass
+        except EX as ex:
+            print(ex)
 
         try:
             self.infoLbl.grid_forget()
             self.backBtn.grid_forget()
             self.extBtn.grid_forget()
-        except InterfaceException:
-            pass
+        except EX as ex:
+            print(ex)
 
         try:
             self.chsLbl.grid_forget()
             self.backBtn.grid_forget()
             self.extBtn.grid_forget()
             self.agnBtn.grid_forget()
-        except InterfaceException:
-            pass
+        except EX as ex:
+            print(ex)
 
     def _callback(self):
         """ Функция для выбора директории """
@@ -129,40 +129,40 @@ class Application(tkinter.ttk.Frame):
             self.mainLbl.destroy()
             self.rootBtn.destroy()
             self.infoBtn.destroy()
-        except InterfaceException:
-            pass
+        except EX as ex:
+            print(ex)
 
         try:
             self.infoLbl.destroy()
             self.backBtn.destroy()
             self.extBtn.destroy()
-        except InterfaceException:
-            pass
+        except EX as ex:
+            print(ex)
 
         try:
             self.chsLbl.destroy()
             self.backBtn.destroy()
             self.extBtn.destroy()
             self.agnBtn.destroy()
-        except InterfaceException:
-            pass
+        except EX as ex:
+            print(ex)
 
     def _check_info(self):
         """ Показываем пользователю что мы загрузили """
         self.lsbFont = tkinter.font.Font(self, family='Colibri', size=12)
         self._destroy_widgets()
-        infoLabel = tkinter.ttk.Label(self, text='Ждите, мы начали сбор информации. Это достаточно долгий \n'
-                                                 'долгий процесс. Мы вам сообщим, как закончим сбор.',
-                                      style='StandartLabel.TLabel', font=self.font)
-        infoLabel.grid(row=0, column=0, sticky='n')
+        _infoLabel = tkinter.ttk.Label(self, text='Ждите, мы начали сбор информации. Это достаточно долгий \n'
+                                                  'долгий процесс. Мы вам сообщим, как закончим сбор.',
+                                       style='StandartLabel.TLabel', font=self.font)
+        _infoLabel.grid(row=0, column=0, sticky='n')
 
-        self.lsb = tkinter.Listbox(self, width=56, height=30, selectmode=tkinter.MULTIPLE, font=self.lsbFont, fg='white'
-                                   , bg='gray16', selectbackground='gray2', selectforeground='white smoke',
+        self.lsb = tkinter.Listbox(self, width=56, height=30, selectmode=tkinter.MULTIPLE, font=self.lsbFont,
+                                   fg='white', bg='gray16', selectbackground='gray2', selectforeground='white smoke',
                                    exportselection=0)
         self.lsb.grid(row=1, column=0, sticky='w')
 
-        exBtn = tkinter.ttk.Button(self, text='Свернуть приложение', style='BtnStyle.TButton', command=self._exit)
-        exBtn.grid(row=3, column=0, sticky='ws')
+        _exBtn = tkinter.ttk.Button(self, text='Свернуть приложение', style='BtnStyle.TButton', command=self._exit)
+        _exBtn.grid(row=3, column=0, sticky='ws')
 
         hsy = tkinter.ttk.Scrollbar(self, orient=tkinter.VERTICAL, command=self.lsb.yview)
         self.lsb['yscrollcommand'] = hsy.set
@@ -186,7 +186,6 @@ class Application(tkinter.ttk.Frame):
             self.open_pages_thread.join()
 
 
-if __name__ == '__main__':
-    root = tkinter.Tk()
-    app = Application(master=root)
-    root.mainloop()
+root = tkinter.Tk()
+app = Application(master=root)
+root.mainloop()

@@ -4,6 +4,7 @@ import fake_useragent
 import time
 import os
 import tkinter
+from exceptions import EX
 
 
 """ Создаём путь для папок """
@@ -15,7 +16,8 @@ for root in all_root:
 try:
     os.mkdir(f"{zero_string}\\data (VKPars)")
     zero_string += 'data (VKPars)' + '\\'
-except:
+except EX as exc:
+    print(exc)
     zero_string += 'data (VKPars)' + '\\'
 
 
@@ -67,7 +69,8 @@ def open_pages(direct, datas, label):
                             download_data(get_attachment=get_attachment, all_info=all_info, count=count, label=label)
                             count += 1
 
-                    except:
+                    except EX as ex:
+                        print(ex)
                         get_attachment = info.find('a', class_='attachment__link').get('href')
 
                         try:
@@ -76,20 +79,22 @@ def open_pages(direct, datas, label):
                             all_info = get_who + get_time.replace(':', '-').replace(
                                 ' ', '-').replace(',', '-')
 
-                        except:
+                        except EX as ex:
+                            print(ex)
                             all_info = info.find('div', class_='message__header').text.replace(':', '-').replace(
                                 ' ', '-').replace(',', '-')
 
                         download_data(get_attachment=get_attachment, all_info=all_info, count=count, label=label)
                         count += 1
 
-                except:
+                except EX as ex:
+                    print(ex)
                     continue
-        except Exception as ex:
+        except EX as ex:
             label.insert(tkinter.END, f"[INFO] Process finished with: {ex}")
 
 
-def download_data(get_attachment, all_info, count, label):
+def download_data(get_attachment: str, all_info: str, count: int, label):
     """ Расфасовываем данные по папкам """
     r = requests.get(url=get_attachment, headers=headers)
     file_format = str(get_attachment.split('.')[-1])
