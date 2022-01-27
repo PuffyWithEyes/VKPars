@@ -25,11 +25,14 @@ class Application(tkinter.ttk.Frame):
                     borderwidth=2, foreground='white', background='gray32')
 
         self._create_widgets()
+
         self.master.iconbitmap('images\\icon.ico')
         self.grid_rowconfigure(0, weight=1)
         self.grid_columnconfigure(0, weight=1)
+
         self.master.title('VKPars v0.1 BETA')
         self.master.resizable(False, False)
+
         self.files_dict = []
 
     def _create_widgets(self):
@@ -80,7 +83,7 @@ class Application(tkinter.ttk.Frame):
         try:
             self.chsLbl.grid_forget()
             self.backBtn.grid_forget()
-            self.extBtn.grid_forget()
+            self.extBtnC.grid_forget()
             self.agnBtn.grid_forget()
         except EX as ex:
             print(ex)
@@ -93,9 +96,11 @@ class Application(tkinter.ttk.Frame):
                                         font=self.font)
         self.chsLbl.grid(row=0, column=0, sticky='n')
 
-        self.backBtn.grid(row=1, column=0, sticky='ws')
+        self.backBtnC = tkinter.ttk.Button(self, text='Назад', style='BtnStyle.TButton', command=self._create_widgets)
+        self.backBtnC.grid(row=1, column=0, sticky='ws')
 
-        self.extBtn.grid(row=1, column=0, sticky='es')
+        self.extBtnC = tkinter.ttk.Button(self, text='Выход', style='BtnStyle.TButton', command=root.destroy)
+        self.extBtnC.grid(row=1, column=0, sticky='es')
 
         self.agnBtn = tkinter.ttk.Button(self, text='Выбрать папку снова', style='BtnStyle.TButton',
                                          command=self._callback)
@@ -142,7 +147,7 @@ class Application(tkinter.ttk.Frame):
         try:
             self.chsLbl.destroy()
             self.backBtn.destroy()
-            self.extBtn.destroy()
+            self.extBtnC.destroy()
             self.agnBtn.destroy()
         except EX as ex:
             print(ex)
@@ -182,8 +187,7 @@ class Application(tkinter.ttk.Frame):
                                                                         'продолжится, но вы больше не сможете открыть '
                                                                         'это окно с информацией!')
         if question:
-            root.destroy()
-            self.open_pages_thread.join()
+            self.open_pages_thread.join(root.destroy())
 
 
 root = tkinter.Tk()

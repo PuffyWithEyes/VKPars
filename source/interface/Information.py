@@ -69,8 +69,7 @@ def open_pages(direct, datas, label):
                             download_data(get_attachment=get_attachment, all_info=all_info, count=count, label=label)
                             count += 1
 
-                    except EX as ex:
-                        print(ex)
+                    except:
                         get_attachment = info.find('a', class_='attachment__link').get('href')
 
                         try:
@@ -79,16 +78,14 @@ def open_pages(direct, datas, label):
                             all_info = get_who + get_time.replace(':', '-').replace(
                                 ' ', '-').replace(',', '-')
 
-                        except EX as ex:
-                            print(ex)
+                        except:
                             all_info = info.find('div', class_='message__header').text.replace(':', '-').replace(
                                 ' ', '-').replace(',', '-')
 
                         download_data(get_attachment=get_attachment, all_info=all_info, count=count, label=label)
                         count += 1
 
-                except EX as ex:
-                    print(ex)
+                except:
                     continue
         except EX as ex:
             label.insert(tkinter.END, f"[INFO] Process finished with: {ex}")
@@ -98,22 +95,10 @@ def download_data(get_attachment: str, all_info: str, count: int, label):
     """ Расфасовываем данные по папкам """
     r = requests.get(url=get_attachment, headers=headers)
     file_format = str(get_attachment.split('.')[-1])
-    if file_format == 'jpg':
+    if file_format == 'jpg' or file_format == 'jpeg' or file_format == 'png' or file_format == 'gif':
         with open(f"{zero_string}gallery/id_{count}___{all_info}.{file_format}", 'wb') as file:
             file.write(r.content)
-    elif file_format == 'ogg':
-        with open(f"{zero_string}voices/id_{count}___{all_info}.{file_format}", 'wb') as file:
-            file.write(r.content)
-    elif file_format == 'jpeg':
-        with open(f"{zero_string}gallery/id_{count}___{all_info}.{file_format}", 'wb') as file:
-            file.write(r.content)
-    elif file_format == 'png':
-        with open(f"{zero_string}gallery/id_{count}___{all_info}.{file_format}", 'wb') as file:
-            file.write(r.content)
-    elif file_format == 'gif':
-        with open(f"{zero_string}gallery/id_{count}___{all_info}.{file_format}", 'wb') as file:
-            file.write(r.content)
-    elif file_format == 'mp3':
+    elif file_format == 'ogg' or file_format == 'mp3':
         with open(f"{zero_string}voices/id_{count}___{all_info}.{file_format}", 'wb') as file:
             file.write(r.content)
     else:
